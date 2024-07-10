@@ -13,6 +13,7 @@ export default {
       },
       backgroundImage: {
         pattern: 'url(/assets/bg.png)',
+        mozaic: 'url(/assets/mozaic2.png)',
       },
     },
   },

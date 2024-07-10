@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Logo } from '../../components/logo'
 import { ConfirmTripModal } from './confirm-trip-modal'
 import { InviteGuestsModal } from './invite-guests-modal'
-import { DestinationAndStep } from './steps/destination-and-step'
+import { DestinationAndStep } from './steps/destination-and-date-step'
 import { InviteGuestsStep } from './steps/invite-guests-step'
 
 function CreateTripPage() {
