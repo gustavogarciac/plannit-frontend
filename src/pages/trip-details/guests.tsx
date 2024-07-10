@@ -1,5 +1,7 @@
 import { CircleDashed, UsersRound } from 'lucide-react'
 
+import { Button } from '../../components/button'
+
 export function Guests() {
   return (
     <div className="space-y-6">
@@ -29,10 +31,10 @@ export function Guests() {
         </div>
       </div>
 
-      <button className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-zinc-800 px-5 font-medium text-zinc-200 transition-colors duration-200 ease-linear hover:bg-zinc-700">
+      <Button variant="secondary" size="full">
         <UsersRound className="size-5" />
         Manage Guests
-      </button>
+      </Button>
     </div>
   )
 }

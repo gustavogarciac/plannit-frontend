@@ -1,6 +1,8 @@
 import { AtSign, UserRound, XIcon } from 'lucide-react'
 import { FormEvent } from 'react'
 
+import { Button } from '../../components/button'
+
 type ConfirmTripModalProps = {
   handleCloseConfirmTripModal: () => void
   createTrip: (e: FormEvent<HTMLFormElement>) => void
@@ -56,12 +58,9 @@ export function ConfirmTripModal({
             />
           </div>
 
-          <button
-            className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-purple-300 px-5 font-medium text-lime-950 transition-colors duration-200 ease-linear hover:bg-purple-400"
-            type="submit"
-          >
+          <Button type="submit" size="full">
             Confirm Trip
-          </button>
+          </Button>
         </form>
       </div>
     </div>
