@@ -1,8 +1,9 @@
 import { AtSign, UserRound, XIcon } from 'lucide-react'
+import { FormEvent } from 'react'
 
 type ConfirmTripModalProps = {
   handleCloseConfirmTripModal: () => void
-  createTrip: () => void
+  createTrip: (e: FormEvent<HTMLFormElement>) => void
 }
 
 export function ConfirmTripModal({
