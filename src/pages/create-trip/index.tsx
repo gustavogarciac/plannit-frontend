@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react'
+import { DateRange } from 'react-day-picker'
 import { useNavigate } from 'react-router-dom'
 
 import { Logo } from '../../components/logo'
@@ -13,10 +14,26 @@ function CreateTripPage() {
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false)
   const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] =
     useState<boolean>(false)
+
+  const [destination, setDestination] = useState('')
+  const [ownerName, setOwnerName] = useState('')
+  const [ownerEmail, setOwnerEmail] = useState('')
+  const [eventStartAndEndDates, setEventStartAndEndDates] = useState<
+    DateRange | undefined
+  >()
+
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([])
 
   function createTrip(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    return console.log({
+      destination,
+      ownerName,
+      ownerEmail,
+      eventStartAndEndDates,
+      emailsToInvite,
+    })
 
     navigate('/trips/123')
   }
@@ -81,6 +98,10 @@ function CreateTripPage() {
             handleOpenGuestsInput={handleOpenGuestsInput}
             handleCloseGuestsInput={handleCloseGuestsInput}
             isGuestsInputOpen={isGuestsInputOpen}
+            setDestination={setDestination}
+            setEventsStartAndEndDates={setEventStartAndEndDates}
+            eventsStartAndEndDates={eventStartAndEndDates}
+            destination={destination}
           />
 
           {isGuestsInputOpen && (
@@ -119,6 +140,10 @@ function CreateTripPage() {
         <ConfirmTripModal
           createTrip={createTrip}
           handleCloseConfirmTripModal={handleCloseConfirmTripModal}
+          setOwnerEmail={setOwnerEmail}
+          setOwnerName={setOwnerName}
+          ownerEmail={ownerEmail}
+          ownerName={ownerName}
         />
       )}
     </div>
