@@ -12,3 +12,9 @@ interface Participant {
   email: string
   is_confirmed: boolean
 }
+
+interface Link {
+  id: string
+  title: string
+  url: string
+}

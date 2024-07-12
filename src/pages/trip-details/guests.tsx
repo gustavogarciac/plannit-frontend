@@ -15,11 +15,6 @@ export function Guests() {
 
   const [participants, setParticipants] = useState<Participant[]>([])
 
-  // const displayedDate =
-  //   tripDetails && tripDetails?.ends_at && tripDetails?.starts_at
-  //     ? `${format(tripDetails.starts_at, 'MMMM')}, ${format(tripDetails.starts_at, 'd')} to ${format(tripDetails.ends_at, 'd')}`
-  //     : null
-
   useEffect(() => {
     async function fetchParticipants() {
       const response = await api.get<{ participants: Participant[] }>(
