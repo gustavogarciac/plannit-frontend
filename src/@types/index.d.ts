@@ -18,3 +18,10 @@ interface Link {
   title: string
   url: string
 }
+
+interface Activity {
+  id: string
+  title: string
+  occurs_at: string
+  trip_id: string
+}
