@@ -3,6 +3,7 @@ import { DateRange } from 'react-day-picker'
 import { useNavigate } from 'react-router-dom'
 
 import { Logo } from '../../components/logo'
+import { api } from '../../libs/axios'
 import { ConfirmTripModal } from './confirm-trip-modal'
 import { InviteGuestsModal } from './invite-guests-modal'
 import { DestinationAndStep } from './steps/destination-and-date-step'
@@ -24,10 +25,10 @@ function CreateTripPage() {
 
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([])
 
-  function createTrip(e: FormEvent<HTMLFormElement>) {
+  async function createTrip(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    return console.log({
+    console.log({
       destination,
       ownerName,
       ownerEmail,
@@ -35,7 +36,23 @@ function CreateTripPage() {
       emailsToInvite,
     })
 
-    navigate('/trips/123')
+    if (!destination) return
+    if (!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) return
+    if (emailsToInvite.length === 0) return
+    if (!ownerName || !ownerEmail) return
+
+    const response = await api.post<{ tripId: string }>('/trips', {
+      destination,
+      starts_at: eventStartAndEndDates.from,
+      ends_at: eventStartAndEndDates.to,
+      emails_to_invite: emailsToInvite,
+      owner_name: ownerName,
+      owner_email: ownerEmail,
+    })
+
+    const { tripId } = response.data
+
+    navigate(`/trips/${tripId}`)
   }
 
   function handleOpenGuestsInput() {
