@@ -1,34 +1,58 @@
 import { CircleDashed, UsersRound } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { Button } from '../../components/button'
+import { api } from '../../libs/axios'
 
 export function Guests() {
+  const navigate = useNavigate()
+  const { tripId } = useParams<{ tripId: string }>()
+
+  if (!tripId) {
+    navigate('/')
+  }
+
+  const [participants, setParticipants] = useState<Participant[]>([])
+
+  // const displayedDate =
+  //   tripDetails && tripDetails?.ends_at && tripDetails?.starts_at
+  //     ? `${format(tripDetails.starts_at, 'MMMM')}, ${format(tripDetails.starts_at, 'd')} to ${format(tripDetails.ends_at, 'd')}`
+  //     : null
+
+  useEffect(() => {
+    async function fetchParticipants() {
+      const response = await api.get<{ participants: Participant[] }>(
+        `/trips/${tripId}/participants`,
+      )
+
+      setParticipants(response.data.participants)
+    }
+
+    fetchParticipants()
+  }, [tripId])
+
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold">Guests</h2>
 
       <div className="space-y-5">
-        <div className="flex items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <span className="block font-medium text-zinc-100">John Doe</span>
-            <span className="block truncate text-xs font-medium text-zinc-400">
-              johndoe@email.com
-            </span>
+        {participants.map((part) => (
+          <div
+            className="flex items-center justify-between gap-4"
+            key={part.id}
+          >
+            <div className="space-y-1.5">
+              <span className="block font-medium text-zinc-100">
+                {part.name ?? 'Pending'}
+              </span>
+              <span className="block truncate text-xs font-medium text-zinc-400">
+                {part.email}
+              </span>
+            </div>
+            <CircleDashed className="size-5 shrink-0 text-zinc-400" />
           </div>
-          <CircleDashed className="size-5 shrink-0 text-zinc-400" />
-        </div>
-
-        <div className="flex items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <span className="block font-medium text-zinc-100">
-              Jessica White
-            </span>
-            <span className="block truncate text-xs font-medium text-zinc-400">
-              jessicawhite@email.com
-            </span>
-          </div>
-          <CircleDashed className="size-5 shrink-0 text-zinc-400" />
-        </div>
+        ))}
       </div>
 
       <Button variant="secondary" size="full">

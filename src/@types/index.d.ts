@@ -5,3 +5,10 @@ interface Trip {
   ends_at: string
   is_confirmed: boolean
 }
+
+interface Participant {
+  id: string
+  name: string | null
+  email: string
+  is_confirmed: boolean
+}
