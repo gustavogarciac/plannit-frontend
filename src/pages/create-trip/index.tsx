@@ -1,7 +1,10 @@
+import { AxiosError } from 'axios'
 import { FormEvent, useState } from 'react'
 import { DateRange } from 'react-day-picker'
+import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
+import { CustomToast } from '../../components/custom-toast'
 import { Logo } from '../../components/logo'
 import { api } from '../../libs/axios'
 import { ConfirmTripModal } from './confirm-trip-modal'
@@ -27,32 +30,37 @@ function CreateTripPage() {
 
   async function createTrip(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    try {
+      if (!destination) return
+      if (!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) return
+      if (emailsToInvite.length === 0) return
+      if (!ownerName || !ownerEmail) return
 
-    console.log({
-      destination,
-      ownerName,
-      ownerEmail,
-      eventStartAndEndDates,
-      emailsToInvite,
-    })
+      const response = await api.post<{ tripId: string }>('/trips', {
+        destination,
+        starts_at: eventStartAndEndDates.from,
+        ends_at: eventStartAndEndDates.to,
+        emails_to_invite: emailsToInvite,
+        owner_name: ownerName,
+        owner_email: ownerEmail,
+      })
 
-    if (!destination) return
-    if (!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) return
-    if (emailsToInvite.length === 0) return
-    if (!ownerName || !ownerEmail) return
+      const { tripId } = response.data
 
-    const response = await api.post<{ tripId: string }>('/trips', {
-      destination,
-      starts_at: eventStartAndEndDates.from,
-      ends_at: eventStartAndEndDates.to,
-      emails_to_invite: emailsToInvite,
-      owner_name: ownerName,
-      owner_email: ownerEmail,
-    })
+      navigate(`/trips/${tripId}`)
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const message = error.response?.data.message
+        console.log(error)
+        return toast.custom((t) => (
+          <CustomToast t={t} variant="error" message={message} />
+        ))
+      }
 
-    const { tripId } = response.data
-
-    navigate(`/trips/${tripId}`)
+      toast.custom((t) => (
+        <CustomToast t={t} variant="error" message={'Error creating trip!'} />
+      ))
+    }
   }
 
   function handleOpenGuestsInput() {

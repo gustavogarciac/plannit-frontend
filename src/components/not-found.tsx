@@ -13,7 +13,7 @@ export const NotFound = ({ title, message, displayButton = false }: Props) => {
   const navigate = useNavigate()
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-3">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-pattern bg-left">
       <div className="my-6 border-b border-zinc-600 p-6">
         <Logo />
       </div>

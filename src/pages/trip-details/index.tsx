@@ -49,6 +49,10 @@ const TripDetailsPage = () => {
     }
 
     fetchTripDetails()
+
+    if (participantId) {
+      openConfirmAttendanceModal()
+    }
   }, [tripId])
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const TripDetailsPage = () => {
     if (participantId) {
       openConfirmAttendanceModal()
     }
-  })
+  }, [tripId, participantId])
 
   if (!tripDetails) {
     return (
