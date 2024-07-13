@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { Button } from '../../components/button'
 import { api } from '../../libs/axios'
+import { CreateLinkModal } from './create-link-modal'
 
 export function ImportantLinks() {
   const navigate = useNavigate()
@@ -14,6 +15,7 @@ export function ImportantLinks() {
   }
 
   const [links, setLinks] = useState<Link[]>([])
+  const [showModal, setShowModal] = useState<boolean>(false)
 
   useEffect(() => {
     async function fetchImportantLinks() {
@@ -61,10 +63,18 @@ export function ImportantLinks() {
         )}
       </div>
 
-      <Button variant="secondary" size="full">
+      <Button
+        variant="secondary"
+        size="full"
+        onClick={() => setShowModal(true)}
+      >
         New link
         <Plus className="size-5" />
       </Button>
+
+      {showModal && (
+        <CreateLinkModal closeCreateLinkModal={() => setShowModal(false)} />
+      )}
     </div>
   )
 }
