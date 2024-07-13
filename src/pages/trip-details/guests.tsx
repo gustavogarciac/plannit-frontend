@@ -1,4 +1,4 @@
-import { CircleDashed, UsersRound } from 'lucide-react'
+import { CircleCheck, CircleDashed, UsersRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -45,7 +45,11 @@ export function Guests() {
                 {part.email}
               </span>
             </div>
-            <CircleDashed className="size-5 shrink-0 text-zinc-400" />
+            {part.is_confirmed ? (
+              <CircleCheck className="size-5 shrink-0 text-purple-300" />
+            ) : (
+              <CircleDashed className="size-5 shrink-0 text-zinc-400" />
+            )}
           </div>
         ))}
       </div>
