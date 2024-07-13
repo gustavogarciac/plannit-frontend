@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
+import { NotFound } from '../../components/not-found'
 import { api } from '../../libs/axios'
 import { Activities } from './activities'
 import { ConfirmAttendanceModal } from './confirm-attendance-modal'
@@ -62,6 +63,16 @@ const TripDetailsPage = () => {
       openConfirmAttendanceModal()
     }
   })
+
+  if (!tripDetails) {
+    return (
+      <NotFound
+        title="Sorry, I could not find this trip!"
+        message="It looks like there's not a trip with the provided informations."
+        displayButton
+      />
+    )
+  }
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 bg-pattern bg-center bg-no-repeat px-6 py-10">
