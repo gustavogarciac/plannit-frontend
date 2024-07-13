@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { CreateTripPage } from './pages/create-trip'
@@ -15,7 +16,12 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return <RouterProvider router={router} />
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
+  )
 }
 
 export { App }
