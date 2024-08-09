@@ -169,6 +169,7 @@ function CreateTripPage() {
           setOwnerName={setOwnerName}
           ownerEmail={ownerEmail}
           ownerName={ownerName}
+          eventStartAndEndDates={eventStartAndEndDates}
         />
       )}
     </div>

@@ -1,5 +1,7 @@
+import { format } from 'date-fns'
 import { AtSign, UserRound, XIcon } from 'lucide-react'
 import { FormEvent } from 'react'
+import { DateRange } from 'react-day-picker'
 
 import { Button } from '../../components/button'
 
@@ -8,6 +10,7 @@ type ConfirmTripModalProps = {
   createTrip: (e: FormEvent<HTMLFormElement>) => void
   setOwnerName: (name: string) => void
   setOwnerEmail: (email: string) => void
+  eventStartAndEndDates: DateRange | undefined
   ownerName: string
   ownerEmail: string
 }
@@ -19,6 +22,7 @@ export function ConfirmTripModal({
   setOwnerName,
   ownerEmail,
   ownerName,
+  eventStartAndEndDates,
 }: ConfirmTripModalProps) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/60">
@@ -36,13 +40,12 @@ export function ConfirmTripModal({
             Florianópolis, Brazil
           </span>{' '}
           on the date of{' '}
-          <span className="font-semibold text-zinc-100">October 15, 2021</span>{' '}
-          to
           <span className="font-semibold text-zinc-100">
-            {' '}
-            October 20, 2021
+            {eventStartAndEndDates?.from &&
+              eventStartAndEndDates.to &&
+              `${format(eventStartAndEndDates.from, 'MMMM')}, ${format(eventStartAndEndDates.from, 'd')} to ${format(eventStartAndEndDates.to, 'MMMM')}, ${format(eventStartAndEndDates.to, 'd')}`}
           </span>{' '}
-          please fill the form below with the data.
+          , please fill the form below with the data.
         </p>
 
         <form onSubmit={createTrip} className="space-y-3">

@@ -31,13 +31,6 @@ export function InviteGuestsModal({
         </p>
 
         <div className="flex flex-wrap gap-2">
-          <div className="flex items-center gap-2 rounded-md bg-zinc-800 px-2.5 py-1.5">
-            <span className="text-zinc-300">joana@email.com</span>
-            <button type="button">
-              <XIcon className="size-4 text-zinc-400" />
-            </button>
-          </div>
-
           {emailsToInvite.map((email) => (
             <div
               key={email}
